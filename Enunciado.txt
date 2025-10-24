@@ -1,0 +1,53 @@
+
+
+Montar uma interface que peça para o usuario para escolher um arquivo PDF  (Primeiro commit)
+O arquivo PDF irá conter varias datas diferentes
+Seu codigo deverá ler o PDF e verificar quais datas da lista são feriados
+Para saber se uma data é feriado, faça uma chamada API para o endpoint (O ano é importante)
+https://date.nager.at/api/v3/PublicHolidays/2025/BR   (GET) (Segundo commit)
+Ao final, o codigo atualiza a interface para mostrar as datas que são feriados (Terceiro commit)
+Subir tudo para o git
+
+
+
+
+#Fazer chamada api
+import requests
+
+url = "https://date.nager.at/api/v3/PublicHolidays/2025/BR"
+
+payload = {}
+headers = {
+  'accept': 'application/json',
+  'X-CSRF-TOKEN': 'pYBqfz7tfH5NFeqA2YXNhdZIsqRCMmef6FjOTNJz'
+  }
+
+response = requests.request("GET", url, headers=headers, data=payload)
+
+print(response.text)
+
+
+#Ler PDf
+import PyPDF2
+   
+def Get_text_from_PDFfiles_usingPyPDF2(in_PdfFile):  
+    reader = PyPDF2.PdfReader(in_PdfFile) 
+    print(reader.pages[0].extract_text())
+
+
+#Interface
+import tkinter
+def Exemplo():
+    root = tkinter.Tk()
+    root.title("Titulo da janela")
+    root.resizable(False, False)
+    
+    test = tkinter.Button(root, text="Liga LED")
+    test['command'] = LigaLED
+    test.pack()
+
+    test2 = tkinter.Button(root, text="Desliga LED")
+    test2['command'] = DesligaLED
+    test2.pack()
+    
+    root.mainloop()
